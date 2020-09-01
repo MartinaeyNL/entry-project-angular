@@ -9,7 +9,7 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import {NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule, NzPageHeaderModule} from 'ng-zorro-antd';
+import {NzButtonModule, NzCardModule, NzCheckboxModule, NzFormModule, NzInputModule, NzPageHeaderModule} from 'ng-zorro-antd';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +33,8 @@ registerLocaleData(en);
     NzInputModule,
     NzButtonModule,
     AppRoutingModule,
-    NzCheckboxModule
+    NzCheckboxModule,
+    NzCardModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
