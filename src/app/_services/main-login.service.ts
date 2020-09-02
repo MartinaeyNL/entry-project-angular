@@ -38,10 +38,11 @@ export class MainLoginService {
       this.authService.getAuthenticator(username, password).subscribe(
         receivedAuthKeyData => {
           const userToken = JSON.stringify(receivedAuthKeyData.token);
+          console.log('[Auth] Received userToken: ' + userToken);
           localStorage.setItem('userToken', userToken);
         },
         error => {
-          console.log(error);
+          console.log('[Auth] Error: ' + error);
         },
         () => {
           console.log('[Auth] Completed.');
