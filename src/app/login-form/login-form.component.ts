@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MainLoginService} from '../_services/main-login.service';
 
 @Component({
   selector: 'app-login-form',
@@ -12,7 +13,7 @@ export class LoginFormComponent implements OnInit {
   validateForm!: FormGroup;
 
   // constructor
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private loginService: MainLoginService) {}
 
   // on init
   ngOnInit(): void {
@@ -30,6 +31,12 @@ export class LoginFormComponent implements OnInit {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
+    }
+    console.log(this.validateForm);
+    if (this.validateForm.valid) {
+      this.loginService.sendLoginRequest(this.validateForm.get('userName').value as string, this.validateForm.get('password').value as string);
+    } else {
+      console.log('incorrect data!');
     }
   }
 
