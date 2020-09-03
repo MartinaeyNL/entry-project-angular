@@ -6,17 +6,22 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {AuthenticationService} from '../_services/authentication.service';
 
 @Injectable()
 export class HttpheadersInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  // Variables
+  userToken: string;
+
+  constructor() {
+    this.userToken = localStorage.getItem('userToken');
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const token = localStorage.getItem('userToken');
-    if (token) {
+    if (this.userToken) {
       const cloned = request.clone({
-        headers: request.headers.set('Authorization', 'Bearer ' + token)
+        headers: request.headers.set('Authorization', 'Bearer ' + this.userToken)
       });
       return next.handle(cloned);
     }

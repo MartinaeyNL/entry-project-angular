@@ -63,7 +63,7 @@ export class LoginFormComponent implements OnInit {
             localStorage.setItem('userToken', userToken);
           },
           error => {
-            console.log('[Auth] Error!'); // temp
+            console.log('[Auth] Error: ' + error); // temp
             this.errorDisplay = error as string;
             this.loadingState = false;
           },
