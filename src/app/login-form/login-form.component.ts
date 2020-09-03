@@ -15,6 +15,7 @@ export class LoginFormComponent implements OnInit {
   // variables
   validateForm!: FormGroup;
   errorDisplay: string;
+  loadingState: boolean;
 
   // constructor
   constructor(private fb: FormBuilder, private loginService: MainLoginService, private authService: AuthenticationService) {}
@@ -52,6 +53,7 @@ export class LoginFormComponent implements OnInit {
       console.log('making request with ' + username + ' & ' + password);
 
       // Starting the Sign in process
+      this.loadingState = true;
       this.authService.getAuthenticator(username, password)
         .subscribe(
           receivedAuthKeyData => {
@@ -60,12 +62,13 @@ export class LoginFormComponent implements OnInit {
             localStorage.setItem('userToken', userToken);
           },
           error => {
-            console.log('[Auth] Error: '); // temp
-            console.log(error); // temp
+            console.log('[Auth] Error!'); // temp
             this.errorDisplay = error as string;
+            this.loadingState = false;
           },
           () => {
             console.log('[Auth] Completed.');
+            this.loadingState = false;
           }
         );
     }
