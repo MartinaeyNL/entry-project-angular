@@ -9,11 +9,20 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import {NzButtonModule, NzCardModule, NzCheckboxModule, NzFormModule, NzInputModule, NzPageHeaderModule} from 'ng-zorro-antd';
+import {
+  NzAlertModule,
+  NzButtonModule,
+  NzCardModule,
+  NzCheckboxModule,
+  NzFormModule,
+  NzInputModule,
+  NzPageHeaderModule
+} from 'ng-zorro-antd';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { AppRoutingModule } from './app-routing.module';
-import {HTTPINTERCEPTORInterceptor} from './_interceptors/http-interceptor.interceptor';
+import {HttpBaseUrlInterceptor} from './_interceptors/http-base-url-interceptor.service';
+import {ErrorInterceptor} from './_interceptors/error.interceptor';
 
 registerLocaleData(en);
 
@@ -35,11 +44,13 @@ registerLocaleData(en);
     NzButtonModule,
     AppRoutingModule,
     NzCheckboxModule,
-    NzCardModule
+    NzCardModule,
+    NzAlertModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
-    { provide: HTTP_INTERCEPTORS, useClass: HTTPINTERCEPTORInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpBaseUrlInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

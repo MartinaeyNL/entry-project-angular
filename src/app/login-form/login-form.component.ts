@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MainLoginService} from '../_services/main-login.service';
+import {throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {AuthenticationService} from '../_services/authentication.service';
 
 @Component({
   selector: 'app-login-form',
@@ -11,9 +14,10 @@ export class LoginFormComponent implements OnInit {
 
   // variables
   validateForm!: FormGroup;
+  errorDisplay: string;
 
   // constructor
-  constructor(private fb: FormBuilder, private loginService: MainLoginService) {}
+  constructor(private fb: FormBuilder, private loginService: MainLoginService, private authService: AuthenticationService) {}
 
   // on init
   ngOnInit(): void {
@@ -34,9 +38,36 @@ export class LoginFormComponent implements OnInit {
     }
     console.log(this.validateForm);
     if (this.validateForm.valid) {
-      this.loginService.sendLoginRequest(this.validateForm.get('userName').value as string, this.validateForm.get('password').value as string);
+      this.sendLoginRequest(
+        this.validateForm.get('userName').value as string,
+        this.validateForm.get('password').value as string
+      );
     } else {
-      console.log('incorrect data!');
+      this.errorDisplay = 'You haven\'t put the details in correctly.';
+    }
+  }
+
+  sendLoginRequest(username, password): void {
+    if (typeof username === 'string' && typeof password === 'string') {
+      console.log('making request with ' + username + ' & ' + password);
+
+      // Starting the Sign in process
+      this.authService.getAuthenticator(username, password)
+        .subscribe(
+          receivedAuthKeyData => {
+            const userToken = JSON.stringify(receivedAuthKeyData.token);
+            console.log('[Auth] Received userToken: ' + userToken);
+            localStorage.setItem('userToken', userToken);
+          },
+          error => {
+            console.log('[Auth] Error: '); // temp
+            console.log(error); // temp
+            this.errorDisplay = error as string;
+          },
+          () => {
+            console.log('[Auth] Completed.');
+          }
+        );
     }
   }
 

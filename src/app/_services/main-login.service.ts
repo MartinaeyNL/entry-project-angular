@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {AuthenticationService} from './authentication.service';
-import {timeout} from 'rxjs/operators';
+import {catchError, first, timeout} from 'rxjs/operators';
 import {User} from '../models/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -30,12 +30,13 @@ export class MainLoginService {
   /*      Methods      */
   /*-------------------*/
 
-  sendLoginRequest(username, password): void {
+  /*sendLoginRequest(username, password): any {
     if (typeof username === 'string' && typeof password === 'string') {
       console.log('making request with ' + username + ' & ' + password);
 
       // Starting the Sign in process
-      this.authService.getAuthenticator(username, password).subscribe(
+      this.authService.getAuthenticator(username, password)
+        .subscribe(
         receivedAuthKeyData => {
           const userToken = JSON.stringify(receivedAuthKeyData.token);
           console.log('[Auth] Received userToken: ' + userToken);
@@ -43,11 +44,13 @@ export class MainLoginService {
         },
         error => {
           console.log('[Auth] Error: ' + error);
+          return error;
         },
         () => {
           console.log('[Auth] Completed.');
+          return;
         }
       );
     }
-  }
+  }*/
 }
