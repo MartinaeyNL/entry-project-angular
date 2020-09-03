@@ -21,9 +21,10 @@ import {
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { AppRoutingModule } from './app-routing.module';
-import {HttpBaseUrlInterceptor} from './_interceptors/http-base-url-interceptor.service';
+import {HttpBaseUrlInterceptor} from './_interceptors/httpbaseurl.interceptor';
 import {ErrorInterceptor} from './_interceptors/error.interceptor';
 import { DashboardComponent } from './dashboard-home/dashboard.component';
+import {HttpheadersInterceptor} from './_interceptors/httpheaders.interceptor';
 
 registerLocaleData(en);
 
@@ -53,7 +54,8 @@ registerLocaleData(en);
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: HttpBaseUrlInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpheadersInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

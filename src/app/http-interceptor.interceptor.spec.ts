@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpBaseUrlInterceptor } from './_interceptors/http-base-url-interceptor.service';
+import { HttpBaseUrlInterceptor } from './_interceptors/httpbaseurl.interceptor';
 
 describe('HTTPINTERCEPTORInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
