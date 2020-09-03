@@ -4,6 +4,7 @@ import {MainLoginService} from '../_services/main-login.service';
 import {throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {AuthenticationService} from '../_services/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -18,7 +19,7 @@ export class LoginFormComponent implements OnInit {
   loadingState: boolean;
 
   // constructor
-  constructor(private fb: FormBuilder, private loginService: MainLoginService, private authService: AuthenticationService) {}
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private router: Router) {}
 
   // on init
   ngOnInit(): void {
@@ -68,7 +69,7 @@ export class LoginFormComponent implements OnInit {
           },
           () => {
             console.log('[Auth] Completed.');
-            this.loadingState = false;
+            this.router.navigate(['/dashboard']);
           }
         );
     }
