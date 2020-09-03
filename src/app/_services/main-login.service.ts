@@ -15,9 +15,6 @@ export class MainLoginService {
     console.log('this is observable 1');
   });
 
-  // public userDataObservable: Observable<User>;
-  // private userDataObservableSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-
   // Constructor
   constructor(private authService: AuthenticationService) {
     // this.userDataObservable = this.userDataObservableSubject.asObservable();

@@ -13,6 +13,7 @@ export class AuthenticationService {
   authenticator: Observable<boolean>;
 
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {
+
   }
 
   // Methods

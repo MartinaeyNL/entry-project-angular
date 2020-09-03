@@ -3,8 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {DashboardPageComponent} from './dashboard-homepage/dashboard-page.component';
 import {AuthguardInterceptor} from './_interceptors/authguard.interceptor';
-import {AuthloginredirectInterceptor} from './_interceptors/authloginredirect.interceptor';
-import {AuthenticationService} from './_services/authentication.service';
 
 const routes = [
 
