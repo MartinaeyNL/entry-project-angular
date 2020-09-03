@@ -14,8 +14,8 @@ import {
   NzButtonModule,
   NzCardModule,
   NzCheckboxModule,
-  NzFormModule,
-  NzInputModule,
+  NzFormModule, NzIconModule,
+  NzInputModule, NzMenuModule,
   NzPageHeaderModule, NzSpinModule
 } from 'ng-zorro-antd';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -59,7 +59,9 @@ const JWTModuleOptions: JwtModuleOptions = {
     NzCardModule,
     NzAlertModule,
     NzSpinModule,
-    JwtModule.forRoot(JWTModuleOptions)
+    JwtModule.forRoot(JWTModuleOptions),
+    NzMenuModule,
+    NzIconModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
