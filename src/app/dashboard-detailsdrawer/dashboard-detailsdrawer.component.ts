@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Data} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-detailsdrawer',
   templateUrl: './dashboard-detailsdrawer.component.html',
   styleUrls: ['./dashboard-detailsdrawer.component.css']
 })
-export class DashboardDetailsdrawerComponent implements OnInit {
+export class DashboardDetailsdrawerComponent implements OnChanges {
 
   // Variables
+  @Input() listOfUsers: Data[] = [];
   drawerVisible: boolean;
 
   constructor() {
-    this.drawerVisible = true;
+    this.drawerVisible = false;
   }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
   }
 
   // Methods

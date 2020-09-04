@@ -3,7 +3,7 @@
   <!-- Top Bar with Action Buttons  -->
   <div class="send-request mb-3">
     <button nz-button nz-popconfirm nzPopconfirmTitle='Are you sure you want to delete these {{ setOfCheckedIds.size }} Users?' nzPopconfirmPlacement="right" (nzOnConfirm)="deleteUsersRequest()"
-            nzType="danger" [disabled]="setOfCheckedIds.size === 0" [nzLoading]="loadingState" (click)="onUserDelete()">
+            nzType="danger" [disabled]="setOfCheckedIds.size === 0" [nzLoading]="loadingState">
       Delete
     </button>
     <span class="ml-4">Selected {{ setOfCheckedIds.size }} items</span>
@@ -13,7 +13,7 @@
   <nz-table
     #rowSelectionTable
     nzShowPagination
-    [nzData]="listOfUsers"
+    [nzData]="listOfCurrentData"
     nzSize="small"
     nzPageSize="7"
     (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
@@ -27,10 +27,10 @@
           <i nz-icon nzType="search"></i>
         </nz-filter-trigger>
       </th>
-      <th>Email address</th>
-      <th>Idk yet</th>
-      <th>Idk yet</th>
-      <th>Idk yet</th>
+      <th>Email Address</th>
+      <th> </th>
+      <th>Account Creation Date</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -46,6 +46,10 @@
       </td>
       <td>{{ data.email }}</td>
       <td>{{ data.address }}</td>
+      <td>{{ data.created_at.substring(0, 10).toLocaleString() }}</td>
+      <td>
+        <a nz-button nzType="link" (click)="this.onDrawerOpen.emit()">Edit</a>
+      </td>
     </tr>
     </tbody>
   </nz-table>
@@ -59,11 +63,11 @@
         <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
           Search
         </button>-->
-        <nz-input-group [nzSuffix]="suffixIconSearch">
-          <input class="float-left" type="text" nz-input placeholder="Search name" [(ngModel)]="searchNameValue" />
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixSearchIcon">
+          <input class="float-left" type="text" nz-input placeholder="Search name" [(ngModel)]="searchNameValue" (keyup.enter)="search()" />
         </nz-input-group>
-        <ng-template #suffixIconSearch>
-          <i nz-icon nzType="search" (click)="search()"></i>
+        <ng-template #suffixSearchIcon>
+          <i nz-icon nzType="search"></i>
         </ng-template>
       </div>
     </div>

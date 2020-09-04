@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {Data} from '@angular/router';
 import {UsermanagementService} from '../_services/usermanagement.service';
 import {User} from '../models/user';
@@ -8,23 +8,26 @@ import {User} from '../models/user';
   templateUrl: './dashboard-table.component.html',
   styleUrls: ['./dashboard-table.component.css']
 })
-export class DashboardTableComponent implements OnInit {
+export class DashboardTableComponent implements OnChanges {
 
   // Variables
   checked = false;
   loadingState = false;
   searchNameVisible = false;
   searchNameValue = '';
-
   deleteConfirmation = false;
 
+  @Input() listOfUsers: Data[] = [];
+  @Output() onDrawerOpen: EventEmitter<any> = new EventEmitter();
+
   indeterminate = false;
-  listOfUsers: Data[] = [];
+  listOfCurrentData: Data[] = [];
   listOfCurrentPageData: Data[] = [];
   setOfCheckedIds = new Set<number>();
 
+
   // Constructor
-  constructor(private usermanager: UsermanagementService) { }
+  constructor(private usermanager: UsermanagementService) {}
 
 
 
@@ -48,10 +51,6 @@ export class DashboardTableComponent implements OnInit {
   onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
     this.listOfCurrentPageData = listOfCurrentPageData;
     this.refreshCheckedStatus();
-  }
-
-  onUserDelete(): void {
-    this.deleteConfirmation = true;
   }
 
 
@@ -101,33 +100,17 @@ export class DashboardTableComponent implements OnInit {
 
   search(): void {
     console.log('Searching!');
+    console.log('[Search] The size was: ' + this.listOfCurrentData.length);
+    this.listOfCurrentData = this.listOfUsers.filter((item: User) => {
+      return item.firstName.toLowerCase().includes(this.searchNameValue.toLowerCase())
+    });
+    console.log('[Search] Size is now: ' + this.listOfCurrentData.length);
   }
 
   // On Initialize
-  ngOnInit(): void {
-    // this.listOfUsers = null;
-    this.usermanager.getUserHttpGet(0, 200).subscribe(
-      returned => {
-        console.log('[UserTable] Returned an Object:');
-        console.log(returned);
-        this.listOfUsers = returned.data;
-      },
-      error => {
-        console.log('[UserTable] There is an error: ' + error);
-      },
-      () => {
-        console.log('[UserTable] Completed everything!');
-      }
-    );
-    this.listOfUsers = new Array(100).fill(0).map((_, index) => {
-      return {
-        id: index,
-        name: `Edward King ${index}`,
-        age: 32,
-        address: `London, Park Lane no. ${index}`,
-        disabled: index % 2 === 0
-      };
-    });
+  ngOnChanges(): void {
+    // await this.listOfUsers.length > 0;
+    this.listOfCurrentData = this.listOfUsers;
   }
 
 }

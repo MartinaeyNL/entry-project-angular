@@ -1,4 +1,4 @@
 <div>
-  <app-dashboard-table></app-dashboard-table>
-  <app-dashboard-detailsdrawer></app-dashboard-detailsdrawer>
+  <app-dashboard-table [listOfUsers]='this.listOfUsers' (onDrawerOpen)="this.detailsdrawerComponent.openDrawer()"></app-dashboard-table>
+  <app-dashboard-detailsdrawer [listOfUsers]="this.listOfUsers"></app-dashboard-detailsdrawer>
 </div>
