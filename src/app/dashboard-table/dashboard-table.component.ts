@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Data} from '@angular/router';
 import {UsermanagementService} from '../_services/usermanagement.service';
+import {User} from '../models/user';
 
 @Component({
   selector: 'app-dashboard-table',
@@ -80,7 +81,9 @@ export class DashboardTableComponent implements OnInit {
     // this.listOfUsers = null;
     this.usermanager.getUserHttpGet(0, 200).subscribe(
       returned => {
-        console.log('[UserTable] I got this from the Database: ' + returned);
+        console.log('[UserTable] Returned an Object:');
+        console.log(returned);
+        this.listOfUsers = returned.data;
       },
       error => {
         console.log('[UserTable] There is an error: ' + error);

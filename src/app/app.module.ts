@@ -10,13 +10,13 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import {
-    NzAlertModule,
-    NzButtonModule,
-    NzCardModule,
-    NzCheckboxModule, NzDropDownModule,
-    NzFormModule, NzIconModule,
-    NzInputModule, NzMenuModule,
-    NzPageHeaderModule, NzResultModule, NzSpinModule, NzTableModule
+  NzAlertModule, NzAvatarModule,
+  NzButtonModule,
+  NzCardModule,
+  NzCheckboxModule, NzDropDownModule,
+  NzFormModule, NzIconModule,
+  NzInputModule, NzMenuModule,
+  NzPageHeaderModule, NzResultModule, NzSpinModule, NzTableModule
 } from 'ng-zorro-antd';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -46,28 +46,29 @@ const JWTModuleOptions: JwtModuleOptions = {
     DashboardPageComponent,
     DashboardTableComponent
   ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        NzPageHeaderModule,
-        ReactiveFormsModule,
-        NzFormModule,
-        NzInputModule,
-        NzButtonModule,
-        AppRoutingModule,
-        NzCheckboxModule,
-        NzCardModule,
-        NzAlertModule,
-        NzSpinModule,
-        JwtModule.forRoot(JWTModuleOptions),
-        NzMenuModule,
-        NzIconModule,
-        NzTableModule,
-        NzDropDownModule,
-        NzResultModule
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    NzPageHeaderModule,
+    ReactiveFormsModule,
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
+    AppRoutingModule,
+    NzCheckboxModule,
+    NzCardModule,
+    NzAlertModule,
+    NzSpinModule,
+    JwtModule.forRoot(JWTModuleOptions),
+    NzMenuModule,
+    NzIconModule,
+    NzTableModule,
+    NzDropDownModule,
+    NzResultModule,
+    NzAvatarModule
+  ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: HttpBaseUrlInterceptor, multi: true },

@@ -1,15 +1,20 @@
 <div>
+
+  <!-- Top Bar with Action Buttons  -->
   <div class="send-request mb-3">
     <button nz-button nzType="primary" [disabled]="setOfCheckedIds.size === 0" [nzLoading]="loadingState" (click)="sendRequest()">
       Send Request
     </button>
     <span class="ml-4">Selected {{ setOfCheckedIds.size }} items</span>
   </div>
+
+
+  <!-- Table with all the data -->
   <nz-table
     #rowSelectionTable
     nzShowPagination
     [nzData]="listOfUsers"
-    nzSize="middle"
+    nzSize="small"
     nzPageSize="7"
     (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
   >
@@ -17,6 +22,7 @@
     <tr>
       <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
       <th nzCustomFilter>
+        <p>Full Name</p>
         <nz-filter-trigger [(nzVisible)]="searchNameVisible" [nzActive]="searchNameValue.length > 0" [nzDropdownMenu]="menu">
           <i nz-icon nzType="search"></i>
         </nz-filter-trigger>
@@ -32,12 +38,18 @@
         [nzDisabled]="data.disabled"
         (nzCheckedChange)="onItemChecked(data.id, $event)"
       ></td>
-      <td>{{ data.name }}</td>
+      <td>
+        <nz-avatar class="float-left mr-3 border border-gray-300" [nzSize]="32" [nzSrc]="data.avatar" [nzIcon]="'user'"></nz-avatar>
+        <p style="line-height: 230%">{{ data.firstName + ' ' + data.lastName }}</p>
+      </td>
       <td>{{ data.age }}</td>
       <td>{{ data.address }}</td>
     </tr>
     </tbody>
   </nz-table>
+
+
+  <!-- Search box in Name column -->
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <div class="ant-table-filter-dropdown">
       <div class="search-box">
