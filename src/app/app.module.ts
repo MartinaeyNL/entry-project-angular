@@ -10,13 +10,13 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import {
-  NzAlertModule,
-  NzButtonModule,
-  NzCardModule,
-  NzCheckboxModule,
-  NzFormModule, NzIconModule,
-  NzInputModule, NzMenuModule,
-  NzPageHeaderModule, NzSpinModule
+    NzAlertModule,
+    NzButtonModule,
+    NzCardModule,
+    NzCheckboxModule, NzDropDownModule,
+    NzFormModule, NzIconModule,
+    NzInputModule, NzMenuModule,
+    NzPageHeaderModule, NzResultModule, NzSpinModule, NzTableModule
 } from 'ng-zorro-antd';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -27,6 +27,7 @@ import { DashboardPageComponent } from './dashboard-homepage/dashboard-page.comp
 import {HttpheadersInterceptor} from './_interceptors/httpheaders.interceptor';
 import {JwtModule, JwtModuleOptions} from '@auth0/angular-jwt';
 import {AuthguardInterceptor} from './_interceptors/authguard.interceptor';
+import { DashboardTableComponent } from './dashboard-table/dashboard-table.component';
 
 registerLocaleData(en);
 
@@ -42,27 +43,31 @@ const JWTModuleOptions: JwtModuleOptions = {
     AppComponent,
     LoginPageComponent,
     LoginFormComponent,
-    DashboardPageComponent
+    DashboardPageComponent,
+    DashboardTableComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    NzPageHeaderModule,
-    ReactiveFormsModule,
-    NzFormModule,
-    NzInputModule,
-    NzButtonModule,
-    AppRoutingModule,
-    NzCheckboxModule,
-    NzCardModule,
-    NzAlertModule,
-    NzSpinModule,
-    JwtModule.forRoot(JWTModuleOptions),
-    NzMenuModule,
-    NzIconModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        NzPageHeaderModule,
+        ReactiveFormsModule,
+        NzFormModule,
+        NzInputModule,
+        NzButtonModule,
+        AppRoutingModule,
+        NzCheckboxModule,
+        NzCardModule,
+        NzAlertModule,
+        NzSpinModule,
+        JwtModule.forRoot(JWTModuleOptions),
+        NzMenuModule,
+        NzIconModule,
+        NzTableModule,
+        NzDropDownModule,
+        NzResultModule
+    ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: HttpBaseUrlInterceptor, multi: true },

@@ -12,5 +12,6 @@ export class AppComponent {
 
   constructor(r: Router) {
     this.router = r;
+    console.log(this.router);
   }
 }

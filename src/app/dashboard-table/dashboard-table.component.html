@@ -1,0 +1,57 @@
+<div>
+  <div class="send-request mb-3">
+    <button nz-button nzType="primary" [disabled]="setOfCheckedIds.size === 0" [nzLoading]="loadingState" (click)="sendRequest()">
+      Send Request
+    </button>
+    <span class="ml-4">Selected {{ setOfCheckedIds.size }} items</span>
+  </div>
+  <nz-table
+    #rowSelectionTable
+    nzShowPagination
+    [nzData]="listOfUsers"
+    nzSize="middle"
+    nzPageSize="7"
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+  >
+    <thead>
+    <tr>
+      <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+      <th nzCustomFilter>
+        <nz-filter-trigger [(nzVisible)]="searchNameVisible" [nzActive]="searchNameValue.length > 0" [nzDropdownMenu]="menu">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Age</th>
+      <th>Address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of rowSelectionTable.data">
+      <td
+        [nzChecked]="setOfCheckedIds.has(data.id)"
+        [nzDisabled]="data.disabled"
+        (nzCheckedChange)="onItemChecked(data.id, $event)"
+      ></td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.age }}</td>
+      <td>{{ data.address }}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <!--<input class="float-left" type="text" nz-input placeholder="Search name" [(ngModel)]="searchNameValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Search
+        </button>-->
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input class="float-left" type="text" nz-input placeholder="Search name" [(ngModel)]="searchNameValue" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <i nz-icon nzType="search" (click)="search()"></i>
+        </ng-template>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</div>
