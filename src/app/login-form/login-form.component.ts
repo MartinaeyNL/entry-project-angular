@@ -58,9 +58,10 @@ export class LoginFormComponent implements OnInit {
       this.authService.getAuthenticator(username, password)
         .subscribe(
           receivedAuthKeyData => {
-            const userToken = JSON.stringify(receivedAuthKeyData.token);
-            console.log('[Auth] Received userToken: ' + userToken);
+            const userToken = JSON.stringify(receivedAuthKeyData.token).split('"').join('');
+            console.log('[Auth] Received userToken: <' + userToken + '>');
             localStorage.setItem('userToken', userToken);
+            this.router.navigate(['/dashboard']);
           },
           error => {
             console.log('[Auth] Error: ' + error); // temp
@@ -69,7 +70,7 @@ export class LoginFormComponent implements OnInit {
           },
           () => {
             console.log('[Auth] Completed.');
-            this.router.navigate(['/dashboard']);
+            //this.router.navigate(['/dashboard']);
           }
         );
     }

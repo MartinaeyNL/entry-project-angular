@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../models/user';
 import {Data} from '@angular/router';
+import {UsermanagementService} from '../_services/usermanagement.service';
 
 @Component({
   selector: 'app-dashboard-table',
@@ -21,7 +21,7 @@ export class DashboardTableComponent implements OnInit {
   setOfCheckedIds = new Set<number>();
 
   // Constructor
-  constructor() { }
+  constructor(private usermanager: UsermanagementService) { }
 
 
 
@@ -77,6 +77,18 @@ export class DashboardTableComponent implements OnInit {
 
   // On Initialize
   ngOnInit(): void {
+    // this.listOfUsers = null;
+    this.usermanager.getUserHttpGet(0, 200).subscribe(
+      returned => {
+        console.log('[UserTable] I got this from the Database: ' + returned);
+      },
+      error => {
+        console.log('[UserTable] There is an error: ' + error);
+      },
+      () => {
+        console.log('[UserTable] Completed everything!');
+      }
+    );
     this.listOfUsers = new Array(100).fill(0).map((_, index) => {
       return {
         id: index,

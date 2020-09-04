@@ -22,7 +22,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           console.log('Invalid Credentials.'); // temp
           if (this.router.url === '/dashboard') {
-            this.router.navigate(['/login']);
+            // localStorage.removeItem('userToken');
+            // this.router.navigate(['/login']);
           }
           return throwError('Invalid Credentials.');
         }

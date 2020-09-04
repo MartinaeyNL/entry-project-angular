@@ -19,10 +19,16 @@ export class HttpheadersInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    console.log('[HttpHeaders] Adding the userToken:');
+    console.log('[' + this.userToken + ']');
     if (this.userToken) {
       const cloned = request.clone({
-        headers: request.headers.set('Authorization', 'Bearer ' + this.userToken)
+        setHeaders: {
+          Authorization: `Bearer ${this.userToken}`
+        }
       });
+      console.log('[HttpHeaders] Cloned request is..');
+      console.log(cloned);
       return next.handle(cloned);
     }
     else {

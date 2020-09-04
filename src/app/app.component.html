@@ -1,7 +1,7 @@
 <div class="min-h-screen max-h-screen bg-gradient-to-r from-blue-700 to-green-500">
   <div class="p-12 overflow-hidden h-full">
-    <nz-card class="bg-white mb-5" style="box-shadow: #000c17;">
-      <header *ngIf="this.router.url !== '/login'">
+    <header *ngIf="this.router.url !== '/login'">
+      <nz-card class="bg-white mb-5" style="box-shadow: #000c17;">
         <ul nz-menu nzMode="horizontal">
           <li nz-menu-item nzSelected>
             <i nz-icon nzType="mail"></i>
@@ -43,10 +43,10 @@
             <a href="https://ng.ant.design" target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
           </li>
         </ul>
-      </header>
-    </nz-card>
+      </nz-card>
+    </header>
     <div class="p-2">
-        <nz-card class="bg-white p-8">
+        <nz-card class="p-8">
           <router-outlet></router-outlet>
           <div *ngIf="this.router.url === '/'" class="flex items-center justify-center">
             <nz-result nzStatus="404" nzTitle="404" nzSubTitle="Sorry, the page you visited does not exist.">
