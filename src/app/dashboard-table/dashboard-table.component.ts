@@ -16,6 +16,8 @@ export class DashboardTableComponent implements OnInit {
   searchNameVisible = false;
   searchNameValue = '';
 
+  deleteConfirmation = false;
+
   indeterminate = false;
   listOfUsers: Data[] = [];
   listOfCurrentPageData: Data[] = [];
@@ -30,7 +32,32 @@ export class DashboardTableComponent implements OnInit {
   /*        METHODS            */
   /*---------------------------*/
 
-  // When someone selects a user
+  // When USER presses ONE item
+  onItemChecked(id: number, checked: boolean): void {
+    this.updateCheckedSet(id, checked);
+    this.refreshCheckedStatus();
+  }
+
+  // When USER presses the 'all' buttons which selects all of the current page
+  onAllChecked(checked: boolean): void {
+    this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+    this.refreshCheckedStatus();
+  }
+
+  // When the USER changes the page
+  onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
+    this.listOfCurrentPageData = listOfCurrentPageData;
+    this.refreshCheckedStatus();
+  }
+
+  onUserDelete(): void {
+    this.deleteConfirmation = true;
+  }
+
+
+  /*-----------------------------------------------*/
+
+  // LOGIC method where the List gets edited.
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
       this.setOfCheckedIds.add(id);
@@ -39,32 +66,32 @@ export class DashboardTableComponent implements OnInit {
     }
   }
 
-  // When page changes
-  onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
-    this.listOfCurrentPageData = listOfCurrentPageData;
-    this.refreshCheckedStatus();
-  }
-
+  // LOGIC method to refresh the data
   refreshCheckedStatus(): void {
     const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
     this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedIds.has(id));
     this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedIds.has(id)) && !this.checked;
   }
 
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
-  }
-
-  onAllChecked(checked: boolean): void {
-    this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
-    this.refreshCheckedStatus();
-  }
-
-  sendRequest(): void {
+  // LOGIC to send request
+  deleteUsersRequest(): void {
     this.loadingState = true;
     const requestData = this.listOfUsers.filter(data => this.setOfCheckedIds.has(data.id));
-    console.log(requestData);
+    for (const user of requestData) {
+      this.usermanager.removeUserHttpDelete(user.id).subscribe(
+        received => {
+          console.log('[DeleteUser] Received: ' + received);
+        },
+        error => {
+          console.log('[DeleteUser] Error! ' + error);
+        },
+        () => {
+          console.log('[DeleteUser] Completed!');
+        }
+      );
+    }
+    // this.usermanager.removeUserHttpDelete()
+
     setTimeout(() => {
       this.setOfCheckedIds.clear();
       this.refreshCheckedStatus();

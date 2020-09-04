@@ -21,4 +21,8 @@ export class UsermanagementService {
     const httpSetup = this.http.post<Observable<any>>('/users', {user});
     return httpSetup;
   }
+  public removeUserHttpDelete(userid: number): Observable<any> {
+    const httpSetup = this.http.delete<Observable<any>>('/users/' + userid);
+    return httpSetup;
+  }
 }

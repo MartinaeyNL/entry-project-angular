@@ -13,10 +13,10 @@ import {
   NzAlertModule, NzAvatarModule,
   NzButtonModule,
   NzCardModule,
-  NzCheckboxModule, NzDropDownModule,
+  NzCheckboxModule, NzDescriptionsModule, NzDividerModule, NzDrawerModule, NzDropDownModule,
   NzFormModule, NzIconModule,
-  NzInputModule, NzMenuModule,
-  NzPageHeaderModule, NzResultModule, NzSpinModule, NzTableModule
+  NzInputModule, NzListModule, NzMenuModule,
+  NzPageHeaderModule, NzPopconfirmModule, NzResultModule, NzSpinModule, NzTableModule
 } from 'ng-zorro-antd';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -28,6 +28,7 @@ import {HttpheadersInterceptor} from './_interceptors/httpheaders.interceptor';
 import {JwtModule, JwtModuleOptions} from '@auth0/angular-jwt';
 import {AuthguardInterceptor} from './_interceptors/authguard.interceptor';
 import { DashboardTableComponent } from './dashboard-table/dashboard-table.component';
+import { DashboardDetailsdrawerComponent } from './dashboard-detailsdrawer/dashboard-detailsdrawer.component';
 
 registerLocaleData(en);
 
@@ -44,7 +45,8 @@ const JWTModuleOptions: JwtModuleOptions = {
     LoginPageComponent,
     LoginFormComponent,
     DashboardPageComponent,
-    DashboardTableComponent
+    DashboardTableComponent,
+    DashboardDetailsdrawerComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,12 @@ const JWTModuleOptions: JwtModuleOptions = {
     NzTableModule,
     NzDropDownModule,
     NzResultModule,
-    NzAvatarModule
+    NzAvatarModule,
+    NzDescriptionsModule,
+    NzDrawerModule,
+    NzListModule,
+    NzDividerModule,
+    NzPopconfirmModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

@@ -2,12 +2,12 @@
 
   <!-- Top Bar with Action Buttons  -->
   <div class="send-request mb-3">
-    <button nz-button nzType="primary" [disabled]="setOfCheckedIds.size === 0" [nzLoading]="loadingState" (click)="sendRequest()">
-      Send Request
+    <button nz-button nz-popconfirm nzPopconfirmTitle='Are you sure you want to delete these {{ setOfCheckedIds.size }} Users?' nzPopconfirmPlacement="right" (nzOnConfirm)="deleteUsersRequest()"
+            nzType="danger" [disabled]="setOfCheckedIds.size === 0" [nzLoading]="loadingState" (click)="onUserDelete()">
+      Delete
     </button>
     <span class="ml-4">Selected {{ setOfCheckedIds.size }} items</span>
   </div>
-
 
   <!-- Table with all the data -->
   <nz-table
