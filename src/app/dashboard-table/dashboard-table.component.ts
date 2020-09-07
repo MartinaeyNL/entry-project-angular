@@ -102,7 +102,8 @@ export class DashboardTableComponent implements OnChanges {
     console.log('Searching!');
     console.log('[Search] The size was: ' + this.listOfCurrentData.length);
     this.listOfCurrentData = this.listOfUsers.filter((item: User) => {
-      return item.firstName.toLowerCase().includes(this.searchNameValue.toLowerCase())
+      return item.firstName.toLowerCase().includes(this.searchNameValue.toLowerCase()) ||
+        item.lastName.toLowerCase().includes(this.searchNameValue.toLowerCase());
     });
     console.log('[Search] Size is now: ' + this.listOfCurrentData.length);
   }
